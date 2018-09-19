@@ -176,16 +176,27 @@
   _.reduce = function(collection, iteratee, memo) {
     var result;
     var currentMemo = memo;
-    
-    if (arguments.length < 3) {
-      // debugger; 
-      currentMemo = collection[0];
-      for (var i = 1; i < collection.length; i++) {
-        currentMemo = iteratee(currentMemo, collection[i]);
+    if (Array.isArray(collection)) {
+      if (arguments.length < 3) {
+        currentMemo = collection[0];
+        for (var i = 1; i < collection.length; i++) {
+          currentMemo = iteratee(currentMemo, collection[i]);
+        }
+      } else {
+        for (var j = 0; j < collection.length; j++) {
+          currentMemo = iteratee(currentMemo, collection[j]);
+        }
       }
     } else {
-      for (var j = 0; j < collection.length; j++) {
-        currentMemo = iteratee(currentMemo, collection[j]);
+      if (arguments.length < 3) {
+        currentMemo = collection[0];
+        for (var key in collection) {
+          currentMemo = iteratee(currentMemo, collection[key]);
+        }
+      } else {
+        for (var key in collection) {
+          currentMemo = iteratee(currentMemo, collection[key]);
+        }
       }
     }
     return currentMemo;
@@ -374,6 +385,17 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+  //Math.floor Math.random
+    var results = [];
+    var assignedIndices = array.slice();
+    var helper = function(length) {
+      return Math.floor(Math.random() * Math.floor(length));
+    };
+    if (results[i] === array[i]) {
+    }
+    for (var i = 0; i < array.length; i++) {
+      results.push(array[helper(array.length - 1)]);
+    }
   };
 
 
